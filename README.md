@@ -1,6 +1,9 @@
 # Python snake
 An implementation of the classical game Snake in Processing3 for python. 
 
+## Starting the game
+Either download the source and run it directly from processing or download one of the precompiled binaries. The binaries "should" work off the shelf, but nothing is guaranteed ;)
+
 ## Gameplay
 The purpose is to get as high of a score as possible. Each green food has a nutrituional value of 1 score, every blue 4 and every red gives 10. The food slowly rots away and is then replaced by new fresh food. The higher the nutritional value of the food, the shorter its shelf life. The snake will grow by one block for each food item consumed regardless of its nutrituional value.
 
