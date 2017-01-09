@@ -70,27 +70,17 @@ sx = 800
 block_size = sx/20 
 for i in range(0,50,10):
     snake.insert(0,SnakeSegment(i,0,block_size))
-
 velocity = [block_size,0]
+
 def setup():
     frameRate(10)
     size(sx,sx)
     background(0)
     
-    
-draws = 0    
+       
 def draw():
     clear()
-    global grow
-    global score
-    global crash
-    global snake
-    global food
-    global block_size
-    global draws
-    
-    draws += 1
-    
+    global grow, score, crash, snake, food, block_size
     
     text('Score '+str(score), sx-len('Score '+str(score)*100), 10)
     
@@ -143,7 +133,7 @@ def draw():
             crash = True
     
     if crash:
-        text('GAME OVER', width/2-30, height/2)        
+        text('GAME OVER! Press R to restart!', width/2-120, height/2)       
         noLoop()
         
         
@@ -154,10 +144,37 @@ def draw():
             food.pop(i)
             grow = True
             break 
-                        
+                     
+def reset_game():
+    """
+    Resets game variables
+    """
+    global snake, food, score, grow, crash, sx, block_size, velocity
+    
+    snake = []
+    food = []
+    score = 0
+    grow = False
+    crash = False
+    block_size = sx/20 
+    for i in range(0,50,10):
+        snake.insert(0,SnakeSegment(i,0,block_size))
+    velocity = [block_size,0]
+    
+    loop()
                
 def keyPressed():
-    global velocity
+    """
+    Handles movements of the snake. If the game is over it resets all variables and restarts
+    """
+    global velocity, food, block_size
+    
+    if key == 'r':
+        reset_game()       
+    if key == 'f':
+        # Undocumented feature: Spawn more food
+        food.append(Food(block_size))
+        
     if keyCode == UP and velocity[1] == 0:
         velocity[1] = -block_size
         velocity[0] = 0
